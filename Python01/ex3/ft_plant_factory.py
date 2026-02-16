@@ -1,11 +1,11 @@
 class Plant:
     plants = 0
 
-    def __init__(self, name, heigth, plant_age):
+    def __init__(self, name: str, height: int, plant_age: int):
         self.name = name
-        self.heigth = heigth
+        self.height = height
         self.plant_age = plant_age
-        print(f"Created: {self.name} ({self.heigth}cm, {self.plant_age} days)")
+        print(f"Created: {self.name} ({self.height}cm, {self.plant_age} days)")
         Plant.plants += 1
     
     def total_plants(self):
