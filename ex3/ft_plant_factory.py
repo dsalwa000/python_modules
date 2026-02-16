@@ -8,7 +8,6 @@ class Plant:
         print(f"Created: {self.name} ({self.heigth}cm, {self.plant_age} days)")
         Plant.plants += 1
     
-    @classmethod
     def total_plants(self):
         print(f"Total plants created: {self.plants}")
 
@@ -18,4 +17,4 @@ if __name__ == "__main__":
     cactus = Plant("Cactus", 5, 50)
     oak = Plant("Oak", 50, 10)
     lavender = Plant("Lavender", 10, 3)
-    Plant.total_plants()
+    rose.total_plants()
