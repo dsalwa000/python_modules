@@ -1,36 +1,42 @@
 class SecurePlant:
-    def __init__(self, name, heigth, plant_age):
-        self.__name = name
-        self.__heigth = heigth
-        self.__plant_age = plant_age
-        print(f"Plant created: : {self.__name}")
-    
-    def __alert(self, type, value, unit):
-        print(f"Invalid operation attempted: {type} {value}{unit} [REJECTED]")
-        print(f"Security: Negative {type} rejected")
-    
-    def set_height(self, heigth):
-        if (heigth <= 0):
-            self.__alert("heigth", heigth, "cm")
-            return
-        self.__heigth = heigth
-        print(f"Height updated: {self.__heigth}cm [OK]")
+    def __init__(self, name: str, heigth: int, plant_age: int):
+        self.name = name
+        self.heigth = heigth
+        self.plant_age = plant_age
 
-    def set_age(self, age):
-        if (age <= 0):
-            self.__alert("age", age, " days")
-            return
-        self.__plant_age = age
-        print(f"Age updated: {self.__plant_age} days [OK]")
+        print(f"Plant created: : {self.name}")
+
+    def _validate(self, value: int, type: str, unit: str) -> bool:
+        if value <= 0:
+            print(
+                f"Invalid operation attempted: "
+                f"{type} {value}{unit} [REJECTED]"
+            )
+            print(f"Security: Negative {type} rejected")
+            return False
+        return True
+
+    def set_height(self, heigth: int) -> None:
+        if self._validate(heigth, "heigth", "cm"):
+            self.heigth = heigth
+            print(f"Height updated: {self.heigth}cm [OK]")
+
+    def set_age(self, age: int):
+        if self._validate(age, "age", " days"):
+            self.plant_age = age
+            print(f"Age updated: {self.plant_age} days [OK]")
 
     def get_height(self):
-        return self.__heigth
+        return self.heigth
 
     def get_age(self):
-        return self.__plant_age
-    
+        return self.plant_age
+
     def get_info(self):
-        print(f"Current plant: {self.__name} ({self.__heigth}cm, {self.__plant_age} days)")
+        print(
+            f"Current plant: {self.name} ({self.heigth}cm, "
+            f"{self.plant_age} days)"
+        )
 
 
 if __name__ == "__main__":
