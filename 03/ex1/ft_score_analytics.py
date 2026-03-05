@@ -3,7 +3,7 @@ import sys
 
 
 class InputError(Exception):
-    def __init__(self, message="Input error"):
+    def __init__(self, message="Input error") -> None:
         super().__init__(message)
 
 
@@ -12,13 +12,13 @@ def main() -> None:
         if len(sys.argv) == 1:
             raise InputError("No arguments")
 
-        strScoreBoard = sys.argv[1:]
+        strScoreBoard: list[str] = sys.argv[1:]
         scoreBoard: list[int] = []
 
         for score in strScoreBoard:
             scoreBoard.append(int(score))
 
-        totalScore = 0
+        totalScore: int = 0
         for score in scoreBoard:
             totalScore += score
 

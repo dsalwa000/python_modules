@@ -19,7 +19,7 @@ def main() -> None:
     print("\nSECURE PRESERVATION:")
     try:
         with open("classified_vault.txt", "w", encoding="utf-8") as file:
-            classified = "[CLASSIFIED] New security protocols archived"
+            classified: str = "[CLASSIFIED] New security protocols archived"
 
             file.write(classified)
             print(classified)

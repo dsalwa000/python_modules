@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
+from collections.abc import Iterator
 
 
-def events_stream():
+def events_stream() -> Iterator[tuple[int, str, int, str]]:
     yield 1, "alice", 5, "killed monster"
     yield 2, "bob", 11, "found treasure"
     yield 3, "charlie", 10, "leveled up"
 
 
-def fibonacci_generator(n):
+def fibonacci_generator(n) -> Iterator[int]:
     a = 0
     b = 1
     for _ in range(n):
@@ -15,9 +16,9 @@ def fibonacci_generator(n):
         a, b = b, a + b
 
 
-def prime_generator(n):
-    count = 0
-    number = 2
+def prime_generator(n) -> Iterator[int]:
+    count: int = 0
+    number: int = 2
     while count < n:
         is_prime = True
         for i in range(2, number):
@@ -35,12 +36,12 @@ def main() -> None:
 
     print("Processing game events...\n")
 
-    stream = iter(events_stream())
+    stream: tuple[int, str, int, str] = iter(events_stream())
 
-    total_events = 0
-    treasure_events = 0
-    lvl_up_events = 0
-    high_lvl_players = 0
+    total_events: int = 0
+    treasure_events: int = 0
+    lvl_up_events: int = 0
+    high_lvl_players: int = 0
 
     for _ in range(0, 3):
         id, player, lvl, event = next(stream)
@@ -66,16 +67,16 @@ def main() -> None:
     print("Processing time: 0.045 seconds\n")
 
     print("=== Generator Demonstration ===\n")
-    fibbonaci = []
+    fibbonaci: list[int] = []
     for n in fibonacci_generator(10):
         fibbonaci.append(str(n))
-    result_fib = ", ".join(fibbonaci)
+    result_fib: list[str] = ", ".join(fibbonaci)
     print(f"Fibonacci sequence (first 10): {result_fib}")
 
-    prime = []
+    prime: list[int] = []
     for n in prime_generator(5):
         prime.append(str(n))
-    result_prime = ", ".join(prime)
+    result_prime: list[str] = ", ".join(prime)
     print(f"Prime numbers (first 5): {result_prime}")
 
 

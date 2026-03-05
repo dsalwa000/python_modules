@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 import sys
-from typing import Dict
 
 
 class InventoryError(Exception):
-    def __init__(self, message="Inventory system"):
+    def __init__(self, message="Inventory system") -> None:
         self.message = message
 
 
@@ -15,9 +14,9 @@ def main() -> None:
         if len(sys.argv) == 1:
             raise InventoryError("No arguments provided!")
 
-        provided_items = sys.argv[1:]
-        inventory: Dict[str, int] = {}
-        total_items = 0
+        provided_items: list[str] = sys.argv[1:]
+        inventory: dict[str, int] = {}
+        total_items: int = 0
 
         for item_str in provided_items:
             if ":" not in item_str:
@@ -38,8 +37,8 @@ def main() -> None:
             print(f"{name}: {quantity} units ({precent:.1f})%")
 
         print("\n=== Item Categories ===")
-        moderate: Dict[str, int] = {}
-        scarce: Dict[str, int] = {}
+        moderate: dict[str, int] = {}
+        scarce: dict[str, int] = {}
         for name, quantity in inventory.items():
             if name == "potion":
                 moderate[name] = quantity
@@ -52,10 +51,10 @@ def main() -> None:
         print("\n=== Dictionary Properties Demo ===")
         print(f"Dictionary keys: {', '.join(inventory.keys())}")
 
-        values_str = [str(v) for v in inventory.values()]
+        values_str: list[str] = [str(v) for v in inventory.values()]
         print(f"Dictionary values: {', '.join(values_str)}")
 
-        item_to_find = 'sword'
+        item_to_find: str = "sword"
         is_present = item_to_find in inventory
         print(f"Sample lookup - '{item_to_find}' in inventory: {is_present}")
 

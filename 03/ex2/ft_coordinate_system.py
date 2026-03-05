@@ -7,7 +7,7 @@ def distance_3d(a: tuple[int, int, int], b: tuple[int, int, int]) -> float:
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2)
 
 
-def parse_coordinates(str_coordinates: str):
+def parse_coordinates(str_coordinates: str) -> tuple[int, int, int]:
     coordinates: list[int] = []
     for coordinate in str_coordinates.split(","):
         coordinates.append(int(coordinate))
@@ -17,29 +17,30 @@ def parse_coordinates(str_coordinates: str):
 
 def main() -> None:
     print("=== Game Coordinate System ===")
-    position_zero = (0, 0, 0)
+    position_zero: tuple[int, int, int] = (0, 0, 0)
 
-    position = (10, 20, 5)
-    print(f"\nPosition created: {position}")
-    print(f"Distance between {position_zero} and {position}: "
-          f"{distance_3d(position_zero, position):.2f}")
+    current_position: tuple[int, int, int] = (10, 20, 5)
+    print(f"\nPosition created: {current_position}")
+    print(f"Distance between {position_zero} and {current_position}: "
+          f"{distance_3d(position_zero, current_position):.2f}")
 
-    str_position = "3,4,0"
+    str_position: str = "3,4,0"
     print(f"\nParsing coordinates: {str_position}")
-    parsed_coordinates = parse_coordinates(str_position)
+    parsed_coordinates: tuple[int, int, int] = parse_coordinates(str_position)
 
     print(f"Parsed position: {parsed_coordinates}")
     print(f"Distance between {position_zero} and {parsed_coordinates}: "
           f"{distance_3d(position_zero, parsed_coordinates):.2f}")
 
     try:
-        wrong_position = "abc,def,ghi"
+        wrong_position: str = "abc,def,ghi"
         print(f"\nParsing coordinates: {wrong_position}")
         parsed_coordinates = parse_coordinates(wrong_position)
 
         print(f"Parsed position: {parsed_coordinates}")
-        print(f"Distance between {position_zero} and {position}: "
-              f"{distance_3d(position_zero, position):.2f}")
+        print(f"Distance between {position_zero} and {current_position}: "
+              f"{distance_3d(position_zero, current_position):.2f}")
+
     except ValueError as e:
         print(f"ValueError: {e}")
 

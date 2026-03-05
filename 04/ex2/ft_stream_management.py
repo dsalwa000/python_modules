@@ -5,8 +5,8 @@ import sys
 def main() -> None:
     sys.stdout.write("=== CYBER ARCHIVES - COMMUNICATION SYSTEM ===\n\n")
 
-    archivist_id = input("Input Stream active. Enter archivist ID: ")
-    status = input("Input Stream active. Enter status report: ")
+    archivist_id: str = input("Input Stream active. Enter archivist ID: ")
+    status: str = input("Input Stream active. Enter status report: ")
 
     sys.stdout.write(
         "\n[STANDARD] Archive status from "

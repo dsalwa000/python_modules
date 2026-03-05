@@ -8,7 +8,7 @@ def main() -> None:
     if sys.argv == 1:
         print("No arguments provided!")
     else:
-        provided = sys.argv[1:]
+        provided: list[str] = sys.argv[1:]
         print(f"Amount of arguments: {len(provided)}")
 
         print("List of arguments: ")

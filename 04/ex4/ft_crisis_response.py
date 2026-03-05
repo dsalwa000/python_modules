@@ -7,7 +7,7 @@ def main() -> None:
     print("CRISIS ALERT: Attempting access to 'lost_archive.txt'...")
     try:
         with open("lost_archive.txt", "r", encoding="utf-8") as file:
-            contains = file.read()
+            contains: str = file.read()
 
             print(contains)
 
@@ -19,7 +19,7 @@ def main() -> None:
     print("CRISIS ALERT: Attempting access to 'classified_vault.txt'...")
     try:
         with open("classified_vault.txt", "w", encoding="utf-8") as file:
-            contains = file.read()
+            contains: str = file.read()
 
             print(contains)
 
@@ -31,7 +31,7 @@ def main() -> None:
     print("ROUTINE ACCESS: Attempting access to 'standard_archive.txt'...")
     try:
         with open("standard_archive.txt", "r", encoding="utf-8") as file:
-            contains = file.read()
+            contains: str = file.read()
 
             print(f"SUCCESS: Archive recovered - ``{contains}``")
 

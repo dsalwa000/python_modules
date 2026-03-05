@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
+from typing import TypedDict
+
+
+class Player(TypedDict):
+    name: str
+    score: int
+    active: bool
+    region: str
+    achievements: set[str]
 
 
 def main() -> None:
-    players = [
+    players: list[Player] = [
         {
             "name": "alice",
             "score": 2100,
@@ -44,15 +53,15 @@ def main() -> None:
 
     print("=== List Comprehension Examples ===")
 
-    high_scorers = [
+    high_scorers: list[str] = [
         player["name"]
         for player in players
         if player["score"] > 2000
     ]
     print(f"High scorers (>2000): {high_scorers}")
 
-    seen = set()
-    duplicates = set()
+    seen: set[int] = set()
+    duplicates: set[int] = set()
 
     for player in players:
         score = player["score"]
@@ -61,7 +70,7 @@ def main() -> None:
         else:
             seen.add(score)
 
-    doubles = [duplicate for duplicate in duplicates]
+    doubles: list[str] = [duplicate for duplicate in duplicates]
     print(f"Scores doubled: {doubles}")
 
     active_players = [
@@ -73,13 +82,13 @@ def main() -> None:
 
     print("\n=== Dict Comprehension Examples ===")
 
-    player_scores = {
+    player_scores: list[str] = {
         player["name"]: player["score"]
         for player in players
     }
     print(f"Player scores: {player_scores}")
 
-    score_categories = {
+    score_categories: dict[str, int] = {
         "high": 0,
         "medium": 0,
         "low": 0
@@ -115,13 +124,13 @@ def main() -> None:
     }
     print(f"Unique players: {unique_players}")
 
-    unique_achievements = set()
+    unique_achievements: set[str] = set()
     for player in players:
         for achievement in player["achievements"]:
             unique_achievements.add(achievement)
     print(f"Unique achievements: {unique_achievements}")
 
-    active_regions = {
+    active_regions: set[str] = {
         player["region"]
         for player in players
         if player["active"] is True
@@ -132,11 +141,11 @@ def main() -> None:
     print(f"Total players: {len(players)}")
     print(f"Total unique achievements: {len(unique_achievements)}")
 
-    average_score = sum([player["score"] for player in players])
+    average_score: list[int] = sum([player["score"] for player in players])
     print(f"Average score: {(average_score / len(players)):.1f}")
 
-    top_score = max([player["score"] for player in players])
-    top_performer = None
+    top_score: int = max([player["score"] for player in players])
+    top_performer: Player = None
 
     for player in players:
         if top_score == player["score"]:
