@@ -1,23 +1,46 @@
 #!/usr/bin/env python3
+
+"""
+This module shows how an inheritance works.
+"""
+
 from abc import ABC, abstractmethod
 
 
 class DataProcessor(ABC):
+    """Abstract class for data processing."""
 
     @abstractmethod
     def process(self, data: any) -> str:
+        """Method which shows a data we will be computing"""
         pass
 
     @abstractmethod
     def validate(self, data: any) -> bool:
+        """
+        Args:
+            data: our data to compute
+
+        Returns:
+            String with proper computed data
+        """
         pass
 
     @abstractmethod
     def format_output(self, result: str) -> str:
+        """
+        Args:
+            result: computed and prepared data in string
+
+        Returns:
+            our result with "Output: " at the beginning
+        """
         return f"Output: {result}"
 
 
 class NumericProcessor(DataProcessor):
+    """Class computing list of ints"""
+
     def process(self, data: list[int]) -> str:
         return f"Processing data: {data}"
 
@@ -41,6 +64,8 @@ class NumericProcessor(DataProcessor):
 
 
 class TextProcessor(DataProcessor):
+    """Class computing singular string"""
+
     def process(self, data: str) -> str:
         return f"Processing data: {data}"
 
@@ -68,11 +93,14 @@ class TextProcessor(DataProcessor):
 
 
 class LogProcessor(DataProcessor):
+    """Class computing singular string"""
+
     def process(self, data: str) -> str:
         return f"Processing data: {data}"
 
     def validate(self, data: str) -> str:
         print("Validation: Log entry verified")
+
         if data == "ERROR: Connection timeout":
             return "[ALERT] ERROR level detected: Connection timeout"
         else:
@@ -122,9 +150,11 @@ def main() -> None:
         numeric_result = numericProcessor.validate(data_one)
         text_result = textProcessor.validate(data_two)
         log_result = logProcessor.validate(data_three)
+
         print(f"Result 1: {numeric_result}")
         print(f"Result 2: {text_result}")
         print(f"Result 3: {log_result}")
+
     except (ValueError, TypeError):
         print("Error: Polymorphic processing failed")
 
