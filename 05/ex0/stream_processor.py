@@ -2,6 +2,7 @@
 
 """
 This module shows how an inheritance works.
+
 """
 
 from abc import ABC, abstractmethod

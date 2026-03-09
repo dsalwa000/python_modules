@@ -1,52 +1,83 @@
 #!/usr/bin/env python3
 from abc import ABC, abstractmethod
 """
-This program demonstrate subtype polymorphism in action
+This program demonstrate subtype polymorphism in action.
+
 """
 
 
 class StreamError(Exception):
-    def __init__(self, message="Stream error"):
+    def __init__(self, message="Stream error") -> None:
         super().__init__(message)
 
 
 class DataStream(ABC):
-    def __init__(self, stream_id: str, stream_type: str):
-        print(f"Stream ID: {self.stream_id}, Type: {stream_type}")
+    """Abstract class for all types of streams"""
+
+    def __init__(self, stream_id: str, stream_type: str) -> None:
+        self.stream_id: str = stream_id
+        self.stream_type: str = stream_type
+
+        self.data_batch: list[any] = None
+
+        print(f"Stream ID: {stream_id}, Type: {stream_type}")
 
     @abstractmethod
     def process_batch(self, data_batch: list[any]) -> str:
+        """Method which displays which data will be processed"""
         pass
 
-    # Dodaj do tych 2 metod implementacje
+    @abstractmethod
+    def get_stats(self) -> dict[str, str | int | float]:
+        return {
+            "stream_id": self.stream_id,
+            "stream_type": self.stream_type
+        }
+
     @abstractmethod
     def filter_data(
         self,
         data_batch: list[any],
         criteria: str | None = None
     ) -> list[any]:
+        """Class which filters specyfic data to display"""
         return []
-
-    @abstractmethod
-    def get_stats(self) -> dict[str, str | int | float]:
-        return {}
 
 
 class SensorStream(DataStream):
-    def __init__(self, stream_id: str, stream_type: str):
+    def __init__(self, stream_id: str, stream_type: str) -> None:
         super().__init__(stream_id, stream_type)
 
-    def process_batch(self, data_batch) -> str:
+    def process_batch(self, data_batch: list[str]) -> str:
         return f"Processing sensor batch: {data_batch}"
 
     def filter_data(
         self,
-        data_batch: list[any],
+        data_batch: list[str],
         criteria: str | None = None
     ) -> list[any]:
+        """
+        The method counts how many readings we did and trying to find
+        an average temperature.
 
-        readings = 0
-        avr_temperature = None
+        Args:
+            data_batch: list of our reading containg an average temperature
+            reading
+
+        Raises:
+            When we didn't find an average temperature or a criteria is None
+            we raise StreamError
+
+        Returns:
+            List with two arguments: readings and average temperature
+
+        """
+
+        if criteria is None:
+            raise StreamError("No criteria provided")
+
+        readings: int = 0
+        avr_temperature: int | None = None
 
         for value in data_batch:
             splitted = value.split(":")
@@ -55,16 +86,13 @@ class SensorStream(DataStream):
             if splitted[0] == criteria:
                 avr_temperature = splitted[1]
 
-        try:
-            if avr_temperature is None:
-                raise StreamError("No average temperature data")
-        except StreamError as e:
-            print(f"Stream error: {e}")
+        if avr_temperature is None:
+            raise StreamError("No average temperature data found")
 
         return [readings, avr_temperature]
 
-    def get_stats(self) -> dict[str, str | int | float]:
-        return {}
+    def get_stats(self):
+        return super().get_stats()
 
 
 class TransactionStream(DataStream):
@@ -74,6 +102,48 @@ class TransactionStream(DataStream):
     def process_batch(self, data_batch) -> str:
         return f"Processing transaction batch: {data_batch}"
 
+    def filter_data(
+        self,
+        data_batch: list[any],
+        criteria: str | None = None
+    ) -> list[any]:
+        """
+        The method counts how many operations we did and calculate new flow.
+
+        Args:
+            data_batch: list which contains out of two categories,
+            buy - how much we spent on somthing,
+            sell - how much we earn by selling things
+
+        Raises:
+            When criteria is None we raise StreamError
+
+        Returns:
+            List returns amout of operations and total flow of money
+
+        """
+
+        if criteria is None:
+            raise StreamError("No criteria provided")
+
+        operations: int = 0
+        flow: int = 0
+
+        for value in data_batch:
+            splitted = value.split(":")
+            operations += 1
+
+            if splitted[0] == "buy":
+                flow += int(splitted[1])
+
+            if splitted[0] == "sell":
+                flow -= int(splitted[1])
+
+        return [operations, flow]
+
+    def get_stats(self):
+        return super().get_stats()
+
 
 class EventStream(DataStream):
     def __init__(self, stream_id: str, stream_type: str):
@@ -82,8 +152,46 @@ class EventStream(DataStream):
     def process_batch(self, data_batch) -> str:
         return f"Processing event batch: {data_batch}"
 
+    def filter_data(
+        self,
+        data_batch: list[any],
+        criteria: str | None = None
+    ) -> list[any]:
+        """
+        The method counts how many events we did and count errors.
+
+        Args:
+            data_batch: list of operations (login, logout or error)
+
+        Raises:
+            When criteria is None we raise StreamError
+
+        Returns:
+            List returns amout of events and total amout of errors
+
+        """
+
+        if criteria is None:
+            raise StreamError("No criteria provided")
+
+        events: int = 0
+        errors: int = 0
+
+        for value in data_batch:
+            events += 1
+
+            if value == "error":
+                errors += 1
+
+        return [events, errors]
+
+    def get_stats(self):
+        return super().get_stats()
+
 
 class StreamProcessor:
+    """Class which shows polymorphism using DataStream abstract class"""
+
     def __init__(self):
         pass
 
@@ -91,9 +199,61 @@ class StreamProcessor:
 def main() -> None:
     print("=== CODE NEXUS - POLYMORPHIC STREAM SYSTEM ===\n")
 
-    
-
     print("Initializing Sensor Stream...")
+
+    sensor_stream = SensorStream("SENSOR_001", "Environmental Data")
+    sensor_data: list[str] = ["temp:22.5", "humidity:65", "pressure:1013"]
+
+    print(sensor_stream.process_batch(sensor_data))
+    filtered_data = sensor_stream.filter_data(sensor_data, criteria="temp")
+
+    readings, avr_temp = filtered_data
+
+    print(
+        f"Sensor analysis: {readings} readings processed, "
+        f"avg temp: {avr_temp}°C"
+    )
+
+    print()
+
+    transaction_stream = TransactionStream("TRANS_001", "Financial Data")
+    transaction_data: list[str] = ["buy:100", "sell:150", "buy:75"]
+
+    print(transaction_stream.process_batch(transaction_data))
+    filtered_data: list[str] = transaction_stream.filter_data(
+        transaction_data,
+        criteria="flow"
+    )
+
+    operations, flow = filtered_data
+
+    print(
+        f"Transaction analysis: {operations} operations, "
+        f"net flow: {flow}"
+    )
+
+    print()
+
+    event_stream = EventStream("EVENT_001", "System Events")
+    event_data: list[str] = ["login", "error", "logout"]
+
+    print(event_stream.process_batch(event_data))
+    filtered_data: list[str] = event_stream.filter_data(
+        event_data,
+        criteria="flow"
+    )
+
+    events, errors = filtered_data
+
+    print(
+        f"Event analysis: {events} events, "
+        f"{errors} error detected"
+    )
+
+    print()
+
+    print("=== Polymorphic Stream Processing ===")
+    print("Processing mixed stream types through unified interface...")
 
 
 if __name__ == "__main__":
