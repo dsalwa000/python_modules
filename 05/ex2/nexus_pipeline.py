@@ -1,11 +1,16 @@
 from abc import ABC, abstractmethod
 from typing import Protocol
+from enum import Enum
 
 """
 This project demonstrates inheritance, error handling, comprehensions,
 data processing and duck typing.
 
 """
+
+
+class StageError(Exception):
+    pass
 
 
 class ProcessingStage(Protocol):
@@ -58,9 +63,10 @@ class JSONAdapter(ProcessingPipeline):
         self.pipeline_id = pipeline_id
 
     def process(self, data: any) -> any:
+        
 
-        for stage in self.stages:
-            stage.process(data)
+        except StageError as e:
+            print(e)
 
 
 class CSVAdapter(ProcessingPipeline):
@@ -88,10 +94,19 @@ class NexusManager:
         self.pipelines: list[ProcessingPipeline] = []
 
     def add_pipeline(self, pipeline: ProcessingPipeline) -> None:
+        pipeline.add_stage(InputStage())
+        pipeline.add_stage(TransformStage())
+        pipeline.add_stage(OutputStage())
+
         self.pipelines.append(pipeline)
 
-    def process_data(self) -> None:
-        pass
+    def process_data(
+            self,
+            pipeline: ProcessingPipeline,
+            raw_data: any
+    ) -> None:
+
+        pipeline.process(raw_data)
 
 
 if __name__ == "__main__":
@@ -99,20 +114,23 @@ if __name__ == "__main__":
 
     nexusManager = NexusManager()
 
-    print("Creating Data Processing Pipeline...")
-    input_stage = InputStage()
-    transform_stage = TransformStage()
-    output_stage = OutputStage()
-
     print("=== Multi-Format Data Processing ===\n")
+    print(
+        "Each pipeline has 3 stages by default:"
+        "Input, Tranformation and Output"
+    )
 
     json_adapter = JSONAdapter()
-    csva_adapter = CSVAdapter()
+    csv_adapter = CSVAdapter()
     stream_adapter = StreamAdapter()
 
     nexusManager.add_pipeline(json_adapter)
-    nexusManager.add_pipeline(csva_adapter)
+    nexusManager.add_pipeline(csv_adapter)
     nexusManager.add_pipeline(stream_adapter)
 
     print("Processing JSON data through pipeline...")
+
+    json_data = {"sensor": "temp", "value": 23.5, "unit": "C"}
+    nexusManager.process_data(json_data)
+
 
