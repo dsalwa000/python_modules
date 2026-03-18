@@ -1,0 +1,16 @@
+In this module we will learn about:
+- __init__.py
+It makes out of folder a package.
+
+
+- Imports - both relative and absolute
+- Cirular Dependencies (dn what it is rn) - dependency resolution
+
+Forbidden:
+- external libraries,
+- eval() or exec()
+- modyfing sys.path directly
+- importlib
+- complex alhorithms
+
+Keep the code simple
