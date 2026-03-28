@@ -113,8 +113,8 @@ class TransactionStream(DataStream):
 
         Args:
             data_batch: list which contains out of two categories,
-            buy - how much we spent on somthing,
-            sell - how much we earn by selling things
+            buy: how much we spent on somthing,
+            sell: how much we earn by selling things
 
         Raises:
             When criteria is None we raise StreamError
