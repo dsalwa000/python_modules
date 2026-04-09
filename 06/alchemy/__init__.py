@@ -1,6 +1,14 @@
+from typing import List
+
 from .elements import create_air
 from .potions import healing_potion as heal, strength_potion
+from . import transmutation
 
-__version__ = "1.0.0"
-__author__ = "Magic"
-__all__ = ["create_air", "heal", "strength_potion"]
+__version__: str = "1.0.0"
+__author__: str = "Magic"
+__all__: List[str] = [
+    "transmutation",
+    "create_air",
+    "heal",
+    "strength_potion"
+]

@@ -1,3 +1,5 @@
 .DS_Store
 data_quest_tools
 __pycache__/
+.mypy_cache/
+.vscode/
