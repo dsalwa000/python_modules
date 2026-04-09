@@ -1,17 +1,9 @@
-"""This file can create every element!"""
-
-
-def create_fire():
-    return "FIRE"
-
-
-def create_water():
-    return "WATER"
+"""Earth and Air"""
 
 
 def create_earth():
-    return "EARTH"
+    return "Earth element created"
 
 
 def create_air():
-    return "AIR"
+    return "Air element created"

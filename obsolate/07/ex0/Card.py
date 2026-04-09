@@ -14,7 +14,7 @@ class Card(ABC):
             "rarity": rarity,
         }
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.stats["name"]
 
     __repr__ = __str__
