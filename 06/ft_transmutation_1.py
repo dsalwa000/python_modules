@@ -1,3 +1,3 @@
-from alchemy import transmutation
+import transmutation
 
 print(transmutation.recipes.lead_to_gold())
