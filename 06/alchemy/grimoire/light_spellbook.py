@@ -6,7 +6,11 @@ def light_spell_allowed_ingredients() -> list[str]:
 
 
 def light_spell_record(spell_name: str, ingredients: str):
-    if spell_name == "good" and ingredients == "nice":
-        return "Recorded"
+    from light_validator import validate_ingredients
 
-    return "Rejected"
+    validator = validate_ingredients(ingredients)
+
+    if validator == "VALID":
+        return spell_name
+    elif validator == "INVALID":
+        return "Spell not recorded"
