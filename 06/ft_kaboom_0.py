@@ -1,7 +1,9 @@
-import alchemy.grimoire
+import grimoire
 
-
-alchemy.grimoire.light_spellbook(
+print("Using grimoire module directly")
+result = grimoire.light_spellbook.light_spell_record(
     "Spell recorded: Fantasy (Earth, wind and fire - VALID)",
-    alchemy.grimoire.light_spell_allowed_ingredients()
+    "fire"
 )
+
+print(result)

@@ -1,4 +1,4 @@
-from . import (
+from alchemy.grimoire import (
     light_spellbook,
     light_validator,
 )

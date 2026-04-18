@@ -1,5 +1,5 @@
 """Let's validate light spells"""
-from light_spellbook import light_spell_allowed_ingredients
+from .light_spellbook import light_spell_allowed_ingredients
 
 
 def validate_ingredients(ingredients: str):

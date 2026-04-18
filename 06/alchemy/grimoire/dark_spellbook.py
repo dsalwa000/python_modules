@@ -1,5 +1,4 @@
-"""Dark"""
-from dark_validator import validate_ingredients
+from .dark_validator import validate_ingredients
 
 
 def dark_spell_allowed_ingredients() -> list[str]:
