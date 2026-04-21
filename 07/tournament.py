@@ -1,4 +1,4 @@
-from ex0 import FlameFactory, AquaFactory, Creature
+from ex0 import FlameFactory, AquaFactory
 from ex1 import TransformCreatureFactory, HealingCreatureFactory
 from ex2 import NormalStrategy, AggressiveStrategy, DefensiveStrategy
 
@@ -30,19 +30,19 @@ sproutling = healingCreatureFactory.create_base()
 bloomelle = healingCreatureFactory.create_evolved()
 
 """Figth tuples"""
-normalFight: tuple[Creature] = (
+normalFight = (
     flameling,
     pyrodon,
     aquabub,
     torragon
 )
 
-aggressiveFigth: tuple[Creature] = (
+aggressiveFigth = (
     shiftling,
     morphagon
 )
 
-defensiveFight: tuple[Creature] = (
+defensiveFight = (
     sproutling,
     bloomelle
 )

@@ -32,10 +32,10 @@ class Bloomelle(Creature, HealCapability):
 
 
 class HealingCreatureFactory(CreatureFactory):
-    def create_base(self) -> Creature:
+    def create_base(self) -> Sproutling:
         return Sproutling("Sproutling", "Grass")
 
-    def create_evolved(self) -> Creature:
+    def create_evolved(self) -> Bloomelle:
         return Bloomelle("Bloomelle", "Grass/Fairy")
 
 
@@ -90,8 +90,8 @@ class Morphagon(Creature, TransformCapability):
 
 
 class TransformCreatureFactory(CreatureFactory):
-    def create_base(self) -> Creature:
+    def create_base(self) -> Shiftling:
         return Shiftling("Shiftling", "Normal")
 
-    def create_evolved(self) -> Creature:
+    def create_evolved(self) -> Morphagon:
         return Morphagon("Morphagon", "Normal/Dragon")
