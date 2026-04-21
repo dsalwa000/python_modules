@@ -6,7 +6,8 @@ T = TypeVar('T', bound='Creature')
 
 
 class Creature(ABC):
-    def __init__(self, name: str, type: str) -> None:
+    def __init__(self, name: str, type: str, **kwargs) -> None:
+        super().__init__(**kwargs)
         self.name = name
         self.type = type
 

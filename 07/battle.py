@@ -1,4 +1,3 @@
-"""Battlefield"""
 from ex0 import FlameFactory, AquaFactory
 
 print("Testing factory")
