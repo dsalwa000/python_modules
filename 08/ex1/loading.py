@@ -5,7 +5,14 @@ import requests
 import importlib.metadata
 
 
-def simulate_loading():
+def simulate_loading() -> None:
+    """
+    To download using pip you have to use: pip install -r requirements.txt
+
+    To install using poetry use: poetry install
+    After that run a program using: poetry run python3 loading.py
+    """
+
     print("LOADING STATUS: Loading programs...\n")
 
     packages = {
@@ -28,7 +35,7 @@ def simulate_loading():
     raw_data = numpy.random.rand(100, 3)
 
     data_frame = pandas.DataFrame(
-        raw_data, 
+        raw_data,
         columns=['Speed', 'Stability', 'Security']
     )
     data_frame['Total_Score'] = (
@@ -51,14 +58,15 @@ def simulate_loading():
     except Exception as e:
         print(f"Lack of connection: {e}")
 
-    print("Show the pyplot")
-    pyplot.title('Simulation')
+    print("Show the pyplot:")
     pyplot.figure(figsize=(10, 6))
     pyplot.plot(data_frame["Total_Score"])
     pyplot.xlabel("Count")
     pyplot.ylabel("Total Score")
 
     pyplot.show()
+
+    print("Analysis complete!")
 
 
 if __name__ == "__main__":

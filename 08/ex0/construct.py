@@ -2,7 +2,7 @@ import sys
 import site
 
 
-def simulate_construct():
+def simulate_construct() -> None:
     in_environment: bool = False
     if sys.prefix != sys.base_prefix:
         in_environment = True
