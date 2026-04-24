@@ -1,0 +1,17 @@
+HELPER TOOL AVAILABLE: This activity includes a helper tool to
+assist your learning journey! Check the attachments, extract the
+archive and look for:
+• data_generator.py - It will help you generate realistic test
+data for all exercises with mages, artifacts, and spells.
+Use python3 data_generator.py to generate test data for your
+implementations, and to test during review.
+
+
+Imports:
+Callable collections.abc
+typing module
+intertools module
+Functions and operators specified
+classes and collections
+build in funcitons
+standard librery modules needed for exercises
