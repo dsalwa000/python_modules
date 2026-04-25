@@ -24,7 +24,7 @@ spells: list[str] = [
 ]
 
 
-def display(to_display: list):
+def display(to_display: list) -> None:
     """Nothing fancy, just to display things"""
 
     for element in to_display:
@@ -42,7 +42,7 @@ display(artifact_sorter(artifacts=artifacts))
 
 def power_filter(mages: list[dict], min_power: int) -> list[dict]:
     """Let's filter"""
-    return filter(lambda x: x['power'] >= min_power, mages)
+    return list(filter(lambda x: x['power'] >= min_power, mages))
 
 
 min_power: int = 60
@@ -52,7 +52,7 @@ display(power_filter(mages=mages, min_power=min_power))
 
 def spell_transformer(spells: list[str]) -> list[str]:
     """Let's transform"""
-    return map(lambda x: "* " + x + " *", spells)
+    return list(map(lambda x: "* " + x + " *", spells))
 
 
 print("\nWe added prefixes and sufixes")

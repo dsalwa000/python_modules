@@ -7,7 +7,7 @@ def simulate_construct() -> None:
     if sys.prefix != sys.base_prefix:
         in_environment = True
 
-    matrix_status = (
+    matrix_status: str = (
         "Welcome to the construct"
         if in_environment
         else "You're still plugged in"
@@ -17,7 +17,7 @@ def simulate_construct() -> None:
 
     print(f"Current Python: {sys.executable}")
 
-    virtual_env = (
+    virtual_env: str = (
         sys.prefix
         if in_environment
         else "None detected"
